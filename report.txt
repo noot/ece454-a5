@@ -1,0 +1,26 @@
+Elizabeth Binks
+ECE454 lab5
+
+
+idea 1 for optimization (parallelization):
+
+ - parallelizing the GoL calculations by splitting up the board into subsquares
+ - eg. 4 threads -> divide into 4 equal subsquares
+ - each thread will calculate the next generation for its subsquare
+
+ idea 1:
+ - since each subsquare requires the subsquare next to it to also be at the same generation for a correct calculation, use condition variable so each thread can signal when it's done
+ - each thread progresses to the next generation only once all threads are done the current generation
+ - however this causes a problem, we need to keep track of how many "signals" have been received. can't do this inside a thread, since the thread is the thing signalling, and the checking of the signal can only be done in one place, not in multiple threads
+ - could do this inside the main thread, but then we need to join and respawn the threads which causes overhead
+
+ idea 2:
+ - it is simpler to use pthread_barrier for this
+ - initialize barrier to only let threads through when (# of threads) signals have been received
+ - each thread signals when it's done, and when all threads are done, the threads progress to the next GoL generation
+
+ idea 3:
+ - my first idea was to parallelize using subsquares, but upon further thought, it would also work to divide the board by rows
+ - eg. board is 128 rows, 4 threads: each thread does 128/4 rows
+ - easier to extend program to more threads, eg. say we do 8 threads, the square root of 8 isn't an integer, so it's more difficult to divide the board into perfect squares
+ - dividing by row should work just as well. might be better for caching too.
