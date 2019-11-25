@@ -1,4 +1,4 @@
-teamName: xxx
-student1_fullName: xxx
-student1_studentNumber: 123456789
-student1_email: xxx@mail.utoronto.ca
+teamName: noot
+student1_fullName: Elizabeth Binks
+student1_studentNumber: 1001274676
+student1_email: elizabeth.binks@mail.utoronto.ca

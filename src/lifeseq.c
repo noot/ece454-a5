@@ -70,4 +70,3 @@ sequential_game_of_life (char* outboard,
     return inboard;
 }
 
-
